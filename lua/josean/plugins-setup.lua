@@ -26,8 +26,38 @@ if not status then
 	return
 end
 
+local protocol = require("vim.lsp.protocol")
+protocol.CompletionItemKind = {
+	"", -- Text
+	"", -- Method
+	"", -- Function
+	"", -- Constructor
+	"", -- Field
+	"", -- Variable
+	"", -- Class
+	"ﰮ", -- Interface
+	"", -- Module
+	"", -- Property
+	"", -- Unit
+	"", -- Value
+	"", -- Enum
+	"", -- Keyword
+	"﬌", -- Snippet
+	"", -- Color
+	"", -- File
+	"", -- Reference
+	"", -- Folder
+	"", -- EnumMember
+	"", -- Constant
+	"", -- Struct
+	"", -- Event
+	"ﬦ", -- Operator
+	"", -- TypeParameter
+}
+
+require("lspconfig").gradle_ls.setup({})
 -- add list of plugins to install
-return packer.startup(function(use)
+return packer.startup(function(use, use_rocks)
 	-- packer can manage itself
 	use("wbthomason/packer.nvim")
 
@@ -68,13 +98,14 @@ return packer.startup(function(use)
 	use("L3MON4D3/LuaSnip") -- snippet engine
 	use("saadparwaiz1/cmp_luasnip") -- for autocompletion
 	use("rafamadriz/friendly-snippets") -- useful snippets
-
+	use("mhartington/formatter.nvim")
 	-- managing & installing lsp servers, linters & formatters
 	use("williamboman/mason.nvim") -- in charge of managing lsp servers, linters & formatters
 	use("williamboman/mason-lspconfig.nvim") -- bridges gap b/w mason & lspconfig
-
 	-- configuring lsp servers
 	use("neovim/nvim-lspconfig") -- easily configure language servers
+	use("mfussenegger/nvim-dap") -- Debugging for Neovim
+	use("mfussenegger/nvim-jdtls") -- Java Language Server
 	use("hrsh7th/cmp-nvim-lsp") -- for autocompletion
 	use({ "glepnir/lspsaga.nvim", branch = "main" }) -- enhanced lsp uis
 	use("jose-elias-alvarez/typescript.nvim") -- additional functionality for typescript server (e.g. rename file & update imports)
@@ -97,7 +128,6 @@ return packer.startup(function(use)
 
 	-- git integration
 	use("lewis6991/gitsigns.nvim") -- show line modifications on left hand side
-
 	if packer_bootstrap then
 		require("packer").sync()
 	end

@@ -24,6 +24,7 @@ mason_lspconfig.setup({
 	ensure_installed = {
 		"tsserver",
 		"html",
+		"jdtls",
 		"cssls",
 		"tailwindcss",
 		"sumneko_lua",
